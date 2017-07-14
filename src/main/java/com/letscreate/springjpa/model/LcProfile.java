@@ -60,7 +60,7 @@ public class LcProfile implements Serializable {
 	private List<LcContribution> lcContributions;
 
 	//bi-directional many-to-one association to LcPortfolio
-	@OneToMany(mappedBy="lcProfile")
+	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.PERSIST)
 	private List<LcPortfolio> lcPortfolios;
 
 	//bi-directional many-to-one association to LcCity
@@ -91,12 +91,11 @@ public class LcProfile implements Serializable {
 	private List<LcRecommendation> lcRecommendations;
 
 	//bi-directional many-to-one association to LcSocial
-	@OneToMany(mappedBy="lcProfile")
+	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.PERSIST)
 	private List<LcSocial> lcSocials;
 
 	public LcProfile() {
-		/*this.lcCountry.s
-		this.lcCity.addLcProfile(this);*/
+
 	}
 
 	public Integer getLcProfileId() {
