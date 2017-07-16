@@ -13,15 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.letscreate.springjpa.model.LcPortfolio;
 import com.letscreate.springjpa.model.LcProfile;
+import com.letscreate.springjpa.model.LcProfileContibsXref;
 import com.letscreate.springjpa.model.LcSocial;
-import com.letscreate.springjpa.repo.LcPortfolioRepository;
 import com.letscreate.springjpa.repo.LcProfileRepository;
 
 @RestController
 public class LcProfileWebController {
 	@Autowired
 	LcProfileRepository lcProfileRepo;
-	LcPortfolioRepository lcPortRepo;
 
 	@PostMapping("/saveprofile")
 	public ResponseEntity<?> saveProfile(@RequestBody LcProfile lcProfile) {
@@ -31,8 +30,11 @@ public class LcProfileWebController {
 		for (LcSocial lcSocial : lcProfile.getLcSocials()) {
 			lcSocial.setLcProfile(lcProfile);
 		}
-		LcProfile lop = lcProfileRepo.save(lcProfile);
-		return new ResponseEntity("Successfully login", new HttpHeaders(),
+		for (LcProfileContibsXref lcProfileContrib : lcProfile.getLcProfileContibsXrefs()) {
+			lcProfileContrib.setLcProfile(lcProfile);
+		}
+		lcProfileRepo.save(lcProfile);
+		return new ResponseEntity<Object>("Successfully created profile.", new HttpHeaders(),
 				HttpStatus.OK);
 	}
 

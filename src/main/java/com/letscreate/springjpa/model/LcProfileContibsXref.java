@@ -15,7 +15,7 @@ public class LcProfileContibsXref implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="lc_profile_contib_xref_id")
 	private Integer lcProfileContibXrefId;
 

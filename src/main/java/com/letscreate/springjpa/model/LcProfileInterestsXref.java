@@ -15,7 +15,7 @@ public class LcProfileInterestsXref implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="lc_profile_interest_id")
 	private Integer lcProfileInterestId;
 

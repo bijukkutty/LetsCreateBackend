@@ -16,7 +16,7 @@ public class LcRecommendation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="lc_recommendation_id")
 	private Integer lcRecommendationId;
 
