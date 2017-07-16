@@ -14,6 +14,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 /**
  * The persistent class for the lc_sub_categories database table.
@@ -34,14 +37,17 @@ public class LcSubCategory implements Serializable {
 	private String lcSubCategoryName;
 
 	//bi-directional many-to-one association to LcProfileContibsXref
+	@JsonBackReference
 	@OneToMany(mappedBy="lcSubCategory")
 	private List<LcProfileContibsXref> lcProfileContibsXrefs;
 
 	//bi-directional many-to-one association to LcProfileInterestsXref
+	@JsonManagedReference
 	@OneToMany(mappedBy="lcSubCategory")
 	private List<LcProfileInterestsXref> lcProfileInterestsXrefs;
 
 	//bi-directional many-to-one association to LcCategory
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="lc_categories_lc_category_id")
 	private LcCategory lcCategory;

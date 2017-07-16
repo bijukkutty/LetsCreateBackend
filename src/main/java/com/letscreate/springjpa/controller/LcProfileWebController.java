@@ -1,5 +1,7 @@
 package com.letscreate.springjpa.controller;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.letscreate.springjpa.model.LcCountry;
 import com.letscreate.springjpa.model.LcPortfolio;
 import com.letscreate.springjpa.model.LcProfile;
 import com.letscreate.springjpa.model.LcProfileContibsXref;
@@ -38,16 +46,12 @@ public class LcProfileWebController {
 				HttpStatus.OK);
 	}
 
-	@RequestMapping("/findallProfiles")
-	public List<LcProfile> findAll1() {
-		System.out
-				.println("Entered FindAll Profiles---------------------------------------------------------------------");
-		List<LcProfile> profileList = lcProfileRepo.findAll();
-		for (LcProfile profile : profileList) {
-			System.out.println("Profile Title is-->"
-					+ profile.getLcProfileTitle());
-		}
-		return profileList;
+	@RequestMapping("/findProfileById")
+	public LcProfile findProfileById(@RequestParam("user_id") int id) {
+		System.out.println("Entered findCountryById---------------------------------------------------------------------");
+		LcProfile lcProfile = lcProfileRepo.findOne(id);
+		System.out.println("Country Name is-->"+lcProfile.getLcProfileTitle());
+		return lcProfile;
 	}
 
 }

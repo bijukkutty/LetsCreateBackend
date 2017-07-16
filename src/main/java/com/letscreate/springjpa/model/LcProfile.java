@@ -18,6 +18,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 /**
  * The persistent class for the lc_profile database table.
@@ -69,41 +72,50 @@ public class LcProfile implements Serializable {
 	private String updateUser;
 
 	//bi-directional many-to-one association to LcContribution
+	@JsonManagedReference
 	@OneToMany(mappedBy="lcProfile")
 	private List<LcContribution> lcContributions;
 
 	//bi-directional many-to-one association to LcPortfolio
+	@JsonManagedReference
 	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.PERSIST)
 	private List<LcPortfolio> lcPortfolios;
 
 	//bi-directional many-to-one association to LcCity
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="lc_cities_lc_city_id")
 	private LcCity lcCity;
 
 	//bi-directional many-to-one association to LcCountry
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="lc_countries_lc_country_id")
 	private LcCountry lcCountry;
 
 	//bi-directional many-to-one association to LcState
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="lc_states_lc_state_id")
 	private LcState lcState;
 
 	//bi-directional many-to-one association to LcProfileContibsXref
+	@JsonManagedReference
 	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.PERSIST)
 	private List<LcProfileContibsXref> lcProfileContibsXrefs;
 
 	//bi-directional many-to-one association to LcProfileInterestsXref
+	@JsonManagedReference
 	@OneToMany(mappedBy="lcProfile")
 	private List<LcProfileInterestsXref> lcProfileInterestsXrefs;
 
 	//bi-directional many-to-one association to LcRecommendation
+	@JsonManagedReference
 	@OneToMany(mappedBy="lcProfile")
 	private List<LcRecommendation> lcRecommendations;
 
 	//bi-directional many-to-one association to LcSocial
+	@JsonManagedReference
 	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.PERSIST)
 	private List<LcSocial> lcSocials;
 

@@ -1,7 +1,18 @@
 package com.letscreate.springjpa.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 /**
@@ -20,11 +31,13 @@ public class LcProfileContibsXref implements Serializable {
 	private Integer lcProfileContibXrefId;
 
 	//bi-directional many-to-one association to LcProfile
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="lc_profile_lc_profile_id")
 	private LcProfile lcProfile;
 
 	//bi-directional many-to-one association to LcSubCategory
+	/*@JsonBackReference*/
 	@ManyToOne
 	@JoinColumn(name="lc_sub_categories_lc_sub_category_id")
 	private LcSubCategory lcSubCategory;
