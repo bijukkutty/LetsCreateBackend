@@ -53,17 +53,17 @@ public class LcState implements Serializable {
 	private String updateUser;
 
 	//bi-directional many-to-one association to LcCity
-	@JsonManagedReference
+	@JsonManagedReference(value="State")
 	@OneToMany(mappedBy="lcState")
 	private List<LcCity> lcCities;
 
 	//bi-directional many-to-one association to LcProfile
-	@JsonManagedReference
+	@JsonManagedReference(value ="profile")
 	@OneToMany(mappedBy="lcState")
 	private List<LcProfile> lcProfiles;
 
 	//bi-directional many-to-one association to LcCountry
-	@JsonBackReference
+	@JsonBackReference(value ="referCountry")
 	@ManyToOne
 	@JoinColumn(name="lc_country_id")
 	private LcCountry lcCountry;

@@ -54,7 +54,7 @@ public class LcPortfolio implements Serializable {
 	private String updateUser;
 
 	//bi-directional many-to-one association to LcProfile
-	@JsonBackReference
+	@JsonBackReference(value ="Portfolios")
 	@ManyToOne
 	@JoinColumn(name="lc_profile_id")
 	private LcProfile lcProfile;

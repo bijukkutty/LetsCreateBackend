@@ -51,7 +51,7 @@ public class LcRecommendation implements Serializable {
 	private String updateUser;
 
 	//bi-directional many-to-one association to LcProfile
-	@JsonBackReference
+	@JsonBackReference(value = "Recommendations")
 	@ManyToOne
 	@JoinColumn(name="lc_profile_lc_profile_id")
 	private LcProfile lcProfile;

@@ -34,7 +34,7 @@ public class LcCategory implements Serializable {
 	private String lcCategoryName;
 
 	//bi-directional many-to-one association to LcSubCategory
-	@JsonManagedReference
+	@JsonManagedReference(value="SubCategories")
 	@OneToMany(mappedBy="lcCategory")
 	private List<LcSubCategory> lcSubCategories;
 

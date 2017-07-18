@@ -55,13 +55,13 @@ public class LcCity implements Serializable {
 	private String updateUser;
 
 	//bi-directional many-to-one association to LcState
-	@JsonBackReference
+	@JsonBackReference(value="State")
 	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="lc_state_id")
 	private LcState lcState;
 
 	//bi-directional many-to-one association to LcProfile
-	@JsonManagedReference
+	@JsonManagedReference(value = "city")
 	@JsonBackReference
 	@OneToMany(mappedBy="lcCity")
 	private List<LcProfile> lcProfiles;

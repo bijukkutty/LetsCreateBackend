@@ -54,7 +54,7 @@ public class LcSocial implements Serializable {
 	private String updateUser;
 
 	//bi-directional many-to-one association to LcProfile
-	@JsonBackReference
+	@JsonBackReference(value = "social")
 	@ManyToOne
 	@JoinColumn(name="lc_profile_id")
 	private LcProfile lcProfile;

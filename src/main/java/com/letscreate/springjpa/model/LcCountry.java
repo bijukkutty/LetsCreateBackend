@@ -52,12 +52,12 @@ public class LcCountry implements Serializable {
 	private String updateUser;
 
 	//bi-directional many-to-one association to LcProfile
-	@JsonManagedReference
+	@JsonManagedReference(value="Country")
 	@OneToMany(mappedBy="lcCountry", fetch = FetchType.LAZY)
 	private List<LcProfile> lcProfiles;
 
 	//bi-directional many-to-one association to LcState
-	@JsonManagedReference
+	@JsonManagedReference(value ="referCountry")
 	@OneToMany(mappedBy="lcCountry", fetch = FetchType.LAZY)
 	private List<LcState> lcStates;
 

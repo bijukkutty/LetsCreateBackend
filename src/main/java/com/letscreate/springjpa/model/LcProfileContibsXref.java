@@ -31,13 +31,13 @@ public class LcProfileContibsXref implements Serializable {
 	private Integer lcProfileContibXrefId;
 
 	//bi-directional many-to-one association to LcProfile
-	@JsonBackReference
+	@JsonBackReference(value = "profilecontribution")
 	@ManyToOne
 	@JoinColumn(name="lc_profile_lc_profile_id")
 	private LcProfile lcProfile;
 
 	//bi-directional many-to-one association to LcSubCategory
-	/*@JsonBackReference*/
+	/*@JsonBackReference(value = "refbysubcon")*/
 	@ManyToOne
 	@JoinColumn(name="lc_sub_categories_lc_sub_category_id")
 	private LcSubCategory lcSubCategory;
