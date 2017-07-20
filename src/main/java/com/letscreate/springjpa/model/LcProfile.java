@@ -100,13 +100,13 @@ public class LcProfile implements Serializable {
 	private LcState lcState;
 
 	//bi-directional many-to-one association to LcProfileContibsXref
-	@JsonManagedReference(value = "profilecontribution")
+	@JsonManagedReference(value = "profilecontributionXref")
 	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.PERSIST)
 	private List<LcProfileContibsXref> lcProfileContibsXrefs;
 
 	//bi-directional many-to-one association to LcProfileInterestsXref
 	@JsonManagedReference(value = "ProfileInterests")
-	@OneToMany(mappedBy="lcProfile")
+	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.PERSIST)
 	private List<LcProfileInterestsXref> lcProfileInterestsXrefs;
 
 	//bi-directional many-to-one association to LcRecommendation

@@ -37,7 +37,7 @@ public class LcProfileInterestsXref implements Serializable {
 	private LcProfile lcProfile;
 
 	//bi-directional many-to-one association to LcSubCategory
-	@JsonBackReference(value = "Category")
+	//@JsonBackReference(value = "ProfileInterestsSubCat")
 	@ManyToOne
 	@JoinColumn(name="lc_sub_categories_lc_sub_category_id")
 	private LcSubCategory lcSubCategory;

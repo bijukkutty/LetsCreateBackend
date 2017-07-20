@@ -37,12 +37,13 @@ public class LcSubCategory implements Serializable {
 	private String lcSubCategoryName;
 
 	//bi-directional many-to-one association to LcProfileContibsXref
-	@JsonBackReference()
+	@JsonBackReference(value = "ProfContribsSubCat")
+	//@JsonManagedReference(value = "ProfContribsSubCat")
 	@OneToMany(mappedBy="lcSubCategory")
 	private List<LcProfileContibsXref> lcProfileContibsXrefs;
 
 	//bi-directional many-to-one association to LcProfileInterestsXref
-	@JsonManagedReference(value = "Category")
+	@JsonBackReference(value = "ProfileInterestsSubCat")
 	@OneToMany(mappedBy="lcSubCategory")
 	private List<LcProfileInterestsXref> lcProfileInterestsXrefs;
 
