@@ -19,32 +19,40 @@ import com.letscreate.springjpa.repo.LcProfileRepository;
 @RestController
 public class LcProfileWebController {
 	@Autowired
-
-	LcProfileRepository lcProfileRepo = null;
+	LcProfileRepository lcProfileRepo;
 
 	@PostMapping("/saveprofile")
-
 	public ResponseEntity<?> saveProfile(@RequestBody LcProfile lcProfile) {
-		for (LcPortfolio lcPort : lcProfile.getLcPortfolios()) {
-			lcPort.setLcProfile(lcProfile);
+		if (!lcProfile.getLcPortfolios().isEmpty()) {
+			for (LcPortfolio lcPort : lcProfile.getLcPortfolios()) {
+				if (lcPort != null)
+					lcPort.setLcProfile(lcProfile);
+			}
 		}
-		for (LcSocial lcSocial : lcProfile.getLcSocials()) {
-			lcSocial.setLcProfile(lcProfile);
+		if (!lcProfile.getLcSocials().isEmpty()) {
+			for (LcSocial lcSocial : lcProfile.getLcSocials()) {
+				if (lcSocial != null)
+					lcSocial.setLcProfile(lcProfile);
+			}
 		}
-		if (lcProfile.getLcProfileContibsXrefs() != null) {
-			for (LcProfileContibsXref lcProfileContrib : lcProfile.getLcProfileContibsXrefs()) {
-				if (lcProfileContrib != null)
-					lcProfileContrib.setLcProfile(lcProfile);
+		if (!lcProfile.getLcProfileContibsXrefs().isEmpty()) {
+			if (lcProfile.getLcProfileContibsXrefs() != null) {
+				for (LcProfileContibsXref lcProfileContrib : lcProfile
+						.getLcProfileContibsXrefs()) {
+					if (lcProfileContrib != null)
+						lcProfileContrib.setLcProfile(lcProfile);
+				}
 			}
 		}
 		lcProfileRepo.save(lcProfile);
-		return new ResponseEntity<Object>("Successfully created profile.", new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<Object>("Successfully created profile.",
+				new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@RequestMapping("/findProfileById")
 	public LcProfile findProfileById(@RequestParam("user_id") int id) {
-		System.out.println(
-				"Entered findCountryById---------------------------------------------------------------------");
+		System.out
+				.println("Entered findCountryById---------------------------------------------------------------------");
 		LcProfile lcProfile = lcProfileRepo.findOne(id);
 		return lcProfile;
 	}
