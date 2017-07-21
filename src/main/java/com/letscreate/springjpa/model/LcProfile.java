@@ -82,19 +82,19 @@ public class LcProfile implements Serializable {
 	private List<LcPortfolio> lcPortfolios;
 
 	//bi-directional many-to-one association to LcCity
-	@JsonBackReference(value = "city")
+	@JsonBackReference(value = "profilecity")
 	@ManyToOne
 	@JoinColumn(name="lc_cities_lc_city_id")
 	private LcCity lcCity;
 
 	//bi-directional many-to-one association to LcCountry
-	@JsonBackReference(value="Country")
+	@JsonBackReference(value="profilecountry")
 	@ManyToOne
 	@JoinColumn(name="lc_countries_lc_country_id")
 	private LcCountry lcCountry;
 
 	//bi-directional many-to-one association to LcState
-	@JsonBackReference(value ="profile")
+	@JsonBackReference(value ="profilestate")
 	@ManyToOne
 	@JoinColumn(name="lc_states_lc_state_id")
 	private LcState lcState;
@@ -120,7 +120,7 @@ public class LcProfile implements Serializable {
 	private List<LcSocial> lcSocials;
 
 	public LcProfile() {
-
+		
 	}
 
 	public Integer getLcProfileId() {
@@ -365,6 +365,6 @@ public class LcProfile implements Serializable {
 		lcSocial.setLcProfile(null);
 
 		return lcSocial;
-	}  
-    
+	}
+ 
 }

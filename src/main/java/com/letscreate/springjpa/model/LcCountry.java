@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -52,12 +53,12 @@ public class LcCountry implements Serializable {
 	private String updateUser;
 
 	//bi-directional many-to-one association to LcProfile
-	@JsonManagedReference(value="Country")
+	@JsonBackReference(value="profilecountry")
 	@OneToMany(mappedBy="lcCountry", fetch = FetchType.LAZY)
 	private List<LcProfile> lcProfiles;
 
 	//bi-directional many-to-one association to LcState
-	@JsonManagedReference(value ="referCountry")
+	@JsonBackReference(value ="referCountry")
 	@OneToMany(mappedBy="lcCountry", fetch = FetchType.LAZY)
 	private List<LcState> lcStates;
 

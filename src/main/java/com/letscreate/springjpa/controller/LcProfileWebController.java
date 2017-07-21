@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.letscreate.springjpa.custom.ProfileResponse;
 import com.letscreate.springjpa.model.LcPortfolio;
 import com.letscreate.springjpa.model.LcProfile;
 import com.letscreate.springjpa.model.LcProfileContibsXref;
@@ -50,11 +51,16 @@ public class LcProfileWebController {
 	}
 
 	@RequestMapping("/findProfileById")
-	public LcProfile findProfileById(@RequestParam("user_id") int id) {
+	public ProfileResponse findProfileById(@RequestParam("user_id") int id) {
 		System.out
 				.println("Entered findCountryById---------------------------------------------------------------------");
 		LcProfile lcProfile = lcProfileRepo.findOne(id);
-		return lcProfile;
+		ProfileResponse profileResp = new ProfileResponse();
+		profileResp.setLcProfile(lcProfile);
+		profileResp.setLcCountryName(lcProfile.getLcCountry().getLcCountryName());
+		profileResp.setLcStateName(lcProfile.getLcState().getLcStateName());
+		profileResp.setLcCityName(lcProfile.getLcCity().getLcCityName());
+		return profileResp;
 	}
 
 }

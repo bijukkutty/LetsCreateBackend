@@ -61,8 +61,7 @@ public class LcCity implements Serializable {
 	private LcState lcState;
 
 	//bi-directional many-to-one association to LcProfile
-	@JsonManagedReference(value = "city")
-	@JsonBackReference
+	@JsonBackReference(value = "profilecity")
 	@OneToMany(mappedBy="lcCity")
 	private List<LcProfile> lcProfiles;
 
