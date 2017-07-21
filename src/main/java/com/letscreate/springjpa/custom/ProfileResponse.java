@@ -3,33 +3,20 @@ package com.letscreate.springjpa.custom;
 import com.letscreate.springjpa.model.LcProfile;
 
 public class ProfileResponse {
-	LcProfile lcProfile;
-	String LcCountryName;
-	String LcStateName;
-	String LcCityName;
-	public LcProfile getLcProfile() {
-		return lcProfile;
+	LcProfile ProfileRootObject;
+	ProfileLocationDtls profileLocationDtls = new ProfileLocationDtls();
+	public LcProfile getProfileRootObject() {
+		return ProfileRootObject;
 	}
-	public void setLcProfile(LcProfile lcProfile) {
-		this.lcProfile = lcProfile;
+	public void setProfileRootObject(LcProfile ProfileRootObject) {
+		this.ProfileRootObject = ProfileRootObject;
 	}
-	public String getLcCountryName() {
-		return LcCountryName;
+	public ProfileLocationDtls getProfileLocationDtls() {
+		return profileLocationDtls;
 	}
-	public void setLcCountryName(String lcCountryName) {
-		LcCountryName = lcCountryName;
+	public void setProfileLocationDtls(ProfileLocationDtls profileLocationDtls) {
+		this.profileLocationDtls = profileLocationDtls;
 	}
-	public String getLcStateName() {
-		return LcStateName;
-	}
-	public void setLcStateName(String lcStateName) {
-		LcStateName = lcStateName;
-	}
-	public String getLcCityName() {
-		return LcCityName;
-	}
-	public void setLcCityName(String lcCityName) {
-		LcCityName = lcCityName;
-	}
+	
 
 }

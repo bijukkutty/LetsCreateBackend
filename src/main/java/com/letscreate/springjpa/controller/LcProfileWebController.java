@@ -1,5 +1,7 @@
 package com.letscreate.springjpa.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,17 +12,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.letscreate.springjpa.custom.CategoriesResponse;
 import com.letscreate.springjpa.custom.ProfileResponse;
+import com.letscreate.springjpa.model.LcCategory;
 import com.letscreate.springjpa.model.LcPortfolio;
 import com.letscreate.springjpa.model.LcProfile;
 import com.letscreate.springjpa.model.LcProfileContibsXref;
 import com.letscreate.springjpa.model.LcSocial;
+import com.letscreate.springjpa.repo.LcCategoryRepository;
 import com.letscreate.springjpa.repo.LcProfileRepository;
 
 @RestController
 public class LcProfileWebController {
 	@Autowired
 	LcProfileRepository lcProfileRepo;
+	@Autowired
+	LcCategoryRepository lcCatRepo;
 
 	@PostMapping("/saveprofile")
 	public ResponseEntity<?> saveProfile(@RequestBody LcProfile lcProfile) {
@@ -56,11 +63,20 @@ public class LcProfileWebController {
 				.println("Entered findCountryById---------------------------------------------------------------------");
 		LcProfile lcProfile = lcProfileRepo.findOne(id);
 		ProfileResponse profileResp = new ProfileResponse();
-		profileResp.setLcProfile(lcProfile);
-		profileResp.setLcCountryName(lcProfile.getLcCountry().getLcCountryName());
-		profileResp.setLcStateName(lcProfile.getLcState().getLcStateName());
-		profileResp.setLcCityName(lcProfile.getLcCity().getLcCityName());
+		profileResp.setProfileRootObject(lcProfile);
+		profileResp.getProfileLocationDtls().setProfileCountryName(lcProfile.getLcCountry().getLcCountryName());
+		profileResp.getProfileLocationDtls().setProfileStateName(lcProfile.getLcState().getLcStateName());
+		profileResp.getProfileLocationDtls().setProfileCityName(lcProfile.getLcCity().getLcCityName());
 		return profileResp;
 	}
 
+	@RequestMapping("/findCatAndSubCat")
+	public CategoriesResponse findCategories() {
+		System.out
+				.println("Entered findCatAndSubCat---------------------------------------------------------------------");
+		List<LcCategory> lcCatList = lcCatRepo.findAll();
+		CategoriesResponse catResp = new CategoriesResponse();
+		catResp.setCategoriesResponse(lcCatList);
+		return catResp;
+	}
 }
