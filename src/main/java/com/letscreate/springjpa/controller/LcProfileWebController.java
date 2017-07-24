@@ -30,7 +30,7 @@ public class LcProfileWebController {
 	LcCategoryRepository lcCatRepo;
 
 	@PostMapping("/saveprofile")
-	public ResponseEntity<?> saveProfile(@RequestBody LcProfile lcProfile) {
+	public LcProfile saveProfile(@RequestBody LcProfile lcProfile) {
 		if (!lcProfile.getLcPortfolios().isEmpty()) {
 			for (LcPortfolio lcPort : lcProfile.getLcPortfolios()) {
 				if (lcPort != null)
@@ -53,9 +53,9 @@ public class LcProfileWebController {
 			}
 		}
 		lcProfileRepo.save(lcProfile);
-		return new ResponseEntity<Object>("Successfully created profile.",
-				new HttpHeaders(), HttpStatus.OK);
+		return lcProfile;
 	}
+	
 
 	@RequestMapping("/findProfileById")
 	public ProfileResponse findProfileById(@RequestParam("user_id") int id) {
