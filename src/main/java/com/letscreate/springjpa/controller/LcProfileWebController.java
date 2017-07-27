@@ -30,7 +30,7 @@ public class LcProfileWebController {
 	LcCategoryRepository lcCatRepo;
 
 	@PostMapping("/saveprofile")
-	public LcProfile saveProfile(@RequestBody LcProfile lcProfile) {
+	public ResponseEntity<?> saveProfile(@RequestBody LcProfile lcProfile) {
 		if (!lcProfile.getLcPortfolios().isEmpty()) {
 			for (LcPortfolio lcPort : lcProfile.getLcPortfolios()) {
 				if (lcPort != null)
@@ -53,9 +53,11 @@ public class LcProfileWebController {
 			}
 		}
 		lcProfileRepo.save(lcProfile);
-		return lcProfile;
+		return new ResponseEntity<Object>(
+				"Successfully created profile with profileId:"
+						+ lcProfile.getLcProfileId(), new HttpHeaders(),
+				HttpStatus.OK);
 	}
-	
 
 	@RequestMapping("/findProfileById")
 	public ProfileResponse findProfileById(@RequestParam("user_id") int id) {
@@ -64,9 +66,12 @@ public class LcProfileWebController {
 		LcProfile lcProfile = lcProfileRepo.findOne(id);
 		ProfileResponse profileResp = new ProfileResponse();
 		profileResp.setProfileRootObject(lcProfile);
-		profileResp.getProfileLocationDtls().setProfileCountryName(lcProfile.getLcCountry().getLcCountryName());
-		profileResp.getProfileLocationDtls().setProfileStateName(lcProfile.getLcState().getLcStateName());
-		profileResp.getProfileLocationDtls().setProfileCityName(lcProfile.getLcCity().getLcCityName());
+		profileResp.getProfileLocationDtls().setProfileCountryName(
+				lcProfile.getLcCountry().getLcCountryName());
+		profileResp.getProfileLocationDtls().setProfileStateName(
+				lcProfile.getLcState().getLcStateName());
+		profileResp.getProfileLocationDtls().setProfileCityName(
+				lcProfile.getLcCity().getLcCityName());
 		return profileResp;
 	}
 
