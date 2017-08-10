@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -71,14 +72,131 @@ public class LcProfile implements Serializable {
 	@Column(name="update_user")
 	private String updateUser;
 
+	//creating new fields in profile table begin
+	@Column(name="lc_name",length=500)
+	private String lcName;
+	
+	@Column(name="lc_primary_email",length=500)
+	private String  lcPrimaryEmail;
+	
+	@Column(name="lc_seconadry_email",length=500)
+	private String lcSecondryEmail;
+	
+	@Column(name="lc_username",length=500)
+	private String lcUserName;
+	
+	@Column(name="lc_password",length=1000)
+	private String lcPassWord;
+	
+	@Column(name="lc_gender",length=25)
+	private String lcGender;
+	
+	@Column(name="lc_age")
+	private Integer lcAge;
+	
+	@Column(name="lc_street",length=2500)
+	private String lcStreet;
+	
+	@Column(name="lc_building",length=500)
+	private String lcBuilding;
+	
+	@Column(name="lc_phone",length=25)
+	private String lcPhone;
+	
+	
+	
+	//creating new fields in profile table end
+	
+	
+	public String getLcName() {
+		return lcName;
+	}
+
+	public void setLcName(String lcName) {
+		this.lcName = lcName;
+	}
+
+	public String getLcPrimaryEmail() {
+		return lcPrimaryEmail;
+	}
+
+	public void setLcPrimaryEmail(String lcPrimaryEmail) {
+		this.lcPrimaryEmail = lcPrimaryEmail;
+	}
+
+	public String getLcSecondryEmail() {
+		return lcSecondryEmail;
+	}
+
+	public void setLcSecondryEmail(String lcSecondryEmail) {
+		this.lcSecondryEmail = lcSecondryEmail;
+	}
+
+	public String getLcUserName() {
+		return lcUserName;
+	}
+
+	public void setLcUserName(String lcUserName) {
+		this.lcUserName = lcUserName;
+	}
+
+	public String getLcPassWord() {
+		return lcPassWord;
+	}
+
+	public void setLcPassWord(String lcPassWord) {
+		this.lcPassWord = lcPassWord;
+	}
+
+	public String getLcGender() {
+		return lcGender;
+	}
+
+	public void setLcGender(String lcGender) {
+		this.lcGender = lcGender;
+	}
+
+	public Integer getLcAge() {
+		return lcAge;
+	}
+
+	public void setLcAge(Integer lcAge) {
+		this.lcAge = lcAge;
+	}
+
+	public String getLcStreet() {
+		return lcStreet;
+	}
+
+	public void setLcStreet(String lcStreet) {
+		this.lcStreet = lcStreet;
+	}
+
+	public String getLcBuilding() {
+		return lcBuilding;
+	}
+
+	public void setLcBuilding(String lcBuilding) {
+		this.lcBuilding = lcBuilding;
+	}
+
+	public String getLcPhone() {
+		return lcPhone;
+	}
+
+	public void setLcPhone(String lcPhone) {
+		this.lcPhone = lcPhone;
+	}
+
 	//bi-directional many-to-one association to LcContribution
 	@JsonManagedReference(value = "contribution")
-	@OneToMany(mappedBy="lcProfile")
+	@OneToMany(mappedBy="lcProfile", cascade = CascadeType.ALL)
 	private List<LcContribution> lcContributions;
 
 	//bi-directional many-to-one association to LcPortfolio
 	@JsonManagedReference(value ="Portfolios")
-	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="lcProfile", cascade = CascadeType.ALL)
+	
 	private List<LcPortfolio> lcPortfolios;
 
 	//bi-directional many-to-one association to LcCity
@@ -101,12 +219,12 @@ public class LcProfile implements Serializable {
 
 	//bi-directional many-to-one association to LcProfileContibsXref
 	@JsonManagedReference(value = "profilecontributionXref")
-	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.ALL)
 	private List<LcProfileContibsXref> lcProfileContibsXrefs;
 
 	//bi-directional many-to-one association to LcProfileInterestsXref
 	@JsonManagedReference(value = "ProfileInterests")
-	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.ALL)
 	private List<LcProfileInterestsXref> lcProfileInterestsXrefs;
 
 	//bi-directional many-to-one association to LcRecommendation
@@ -116,7 +234,7 @@ public class LcProfile implements Serializable {
 
 	//bi-directional many-to-one association to LcSocial
 	@JsonManagedReference(value = "social")
-	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.ALL)
 	private List<LcSocial> lcSocials;
 
 	public LcProfile() {

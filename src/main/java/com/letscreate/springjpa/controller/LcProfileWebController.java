@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,54 +32,56 @@ public class LcProfileWebController {
 
 	@PostMapping("/saveprofile")
 	public ResponseEntity<?> saveProfile(@RequestBody LcProfile lcProfile) {
-		if (!lcProfile.getLcPortfolios().isEmpty()) {
+		String respString = "";
+		if (lcProfile.getLcPortfolios() != null && !lcProfile.getLcPortfolios().isEmpty()) {
 			for (LcPortfolio lcPort : lcProfile.getLcPortfolios()) {
 				if (lcPort != null)
 					lcPort.setLcProfile(lcProfile);
 			}
 		}
-		if (!lcProfile.getLcSocials().isEmpty()) {
+		if (lcProfile.getLcSocials() != null && !lcProfile.getLcSocials().isEmpty()) {
+
 			for (LcSocial lcSocial : lcProfile.getLcSocials()) {
 				if (lcSocial != null)
 					lcSocial.setLcProfile(lcProfile);
+
 			}
 		}
-		if (!lcProfile.getLcProfileContibsXrefs().isEmpty()) {
-			if (lcProfile.getLcProfileContibsXrefs() != null) {
-				for (LcProfileContibsXref lcProfileContrib : lcProfile
-						.getLcProfileContibsXrefs()) {
-					if (lcProfileContrib != null)
-						lcProfileContrib.setLcProfile(lcProfile);
-				}
+		if (lcProfile.getLcProfileContibsXrefs() != null && !lcProfile.getLcProfileContibsXrefs().isEmpty()) {
+
+			for (LcProfileContibsXref lcProfileContrib : lcProfile.getLcProfileContibsXrefs()) {
+				if (lcProfileContrib != null)
+					lcProfileContrib.setLcProfile(lcProfile);
 			}
+
 		}
-		lcProfileRepo.save(lcProfile);
-		return new ResponseEntity<Object>(
-				"Successfully created profile with profileId:"
-						+ lcProfile.getLcProfileId(), new HttpHeaders(),
-				HttpStatus.OK);
+		if (lcProfile.getLcProfileId() == null) {
+			lcProfileRepo.save(lcProfile);
+			respString = "Successfully created profile with profileId:";
+		} else {
+			lcProfileRepo.save(lcProfile);
+			respString = "Successfully updated profile with profileId:";
+		}
+		return new ResponseEntity<Object>(respString + lcProfile.getLcProfileId(), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@RequestMapping("/findProfileById")
 	public ProfileResponse findProfileById(@RequestParam("user_id") int id) {
-		System.out
-				.println("Entered findCountryById---------------------------------------------------------------------");
+		System.out.println(
+				"Entered findCountryById---------------------------------------------------------------------");
 		LcProfile lcProfile = lcProfileRepo.findOne(id);
 		ProfileResponse profileResp = new ProfileResponse();
 		profileResp.setProfileRootObject(lcProfile);
-		profileResp.getProfileLocationDtls().setProfileCountryName(
-				lcProfile.getLcCountry().getLcCountryName());
-		profileResp.getProfileLocationDtls().setProfileStateName(
-				lcProfile.getLcState().getLcStateName());
-		profileResp.getProfileLocationDtls().setProfileCityName(
-				lcProfile.getLcCity().getLcCityName());
+		profileResp.getProfileLocationDtls().setProfileCountryName(lcProfile.getLcCountry().getLcCountryName());
+		profileResp.getProfileLocationDtls().setProfileStateName(lcProfile.getLcState().getLcStateName());
+		profileResp.getProfileLocationDtls().setProfileCityName(lcProfile.getLcCity().getLcCityName());
 		return profileResp;
 	}
 
 	@RequestMapping("/findCatAndSubCat")
 	public CategoriesResponse findCategories() {
-		System.out
-				.println("Entered findCatAndSubCat---------------------------------------------------------------------");
+		System.out.println(
+				"Entered findCatAndSubCat---------------------------------------------------------------------");
 		List<LcCategory> lcCatList = lcCatRepo.findAll();
 		CategoriesResponse catResp = new CategoriesResponse();
 		catResp.setCategoriesResponse(lcCatList);
