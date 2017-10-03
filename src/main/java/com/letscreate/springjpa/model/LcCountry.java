@@ -10,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,7 +25,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
  */
 @Entity
 @Table(name="lc_countries")
-@NamedQuery(name="LcCountry.findAll", query="SELECT l FROM LcCountry l")
 public class LcCountry implements Serializable {
 	private static final long serialVersionUID = 1L;
 

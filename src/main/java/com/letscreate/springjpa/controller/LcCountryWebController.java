@@ -22,6 +22,7 @@ import com.letscreate.springjpa.model.LcCountry;
 import com.letscreate.springjpa.repo.LcCountryRepository;
 
 @RestController
+
 public class LcCountryWebController {
 	@Autowired
 	LcCountryRepository lcCountryRepo;
@@ -32,23 +33,23 @@ public class LcCountryWebController {
 		return new ResponseEntity("Successfully login", new HttpHeaders(), HttpStatus.OK);
 	}
 
-
-
 	@RequestMapping("/findallCountries")
 	public List<LcCountry> findallCountries() {
-		System.out.println("Entered FindAll Profiles---------------------------------------------------------------------");
+		System.out.println(
+				"Entered FindAll Profiles---------------------------------------------------------------------");
 		List<LcCountry> countryList = lcCountryRepo.findAll();
 		for (LcCountry country : countryList) {
-			System.out.println("Country Name is-->"+country.getLcCountryName());
+			System.out.println("Country Name is-->" + country.getLcCountryName());
 		}
 		return countryList;
 	}
-	
+
 	@RequestMapping("/findCountryById")
 	public LcCountry findCountryById(@RequestParam("id") int id) {
-		System.out.println("Entered findCountryById---------------------------------------------------------------------");
+		System.out.println(
+				"Entered findCountryById---------------------------------------------------------------------");
 		LcCountry country = lcCountryRepo.findOne(id);
-		System.out.println("Country Name is-->"+country.getLcCountryName());
+		System.out.println("Country Name is-->" + country.getLcCountryName());
 		try {
 			System.out.println("going to call objectmapper");
 			ObjectMapper mapper = new ObjectMapper();
@@ -61,7 +62,6 @@ public class LcCountryWebController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return country;

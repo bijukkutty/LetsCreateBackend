@@ -2,12 +2,14 @@ package com.letscreate.springjpa.controller;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +31,9 @@ public class LcProfileWebController {
 	LcProfileRepository lcProfileRepo;
 	@Autowired
 	LcCategoryRepository lcCatRepo;
+
+	@PersistenceContext
+	private EntityManager em;
 
 	@PostMapping("/saveprofile")
 	public ResponseEntity<?> saveProfile(@RequestBody LcProfile lcProfile) {
@@ -87,4 +92,19 @@ public class LcProfileWebController {
 		catResp.setCategoriesResponse(lcCatList);
 		return catResp;
 	}
+
+	@RequestMapping("/searchprofile")
+	public ProfileResponse searchprofile(@RequestParam("username") String name) {
+		ProfileResponse response = new ProfileResponse();
+		LcProfile lcProfile = em
+				.createQuery("SELECT e FROM LcProfile e WHERE e.lcUserName = :username", LcProfile.class)
+				.setParameter("username", name).getSingleResult();
+
+		response.setProfileRootObject(lcProfile);
+		response.getProfileLocationDtls().setProfileCountryName(lcProfile.getLcCountry().getLcCountryName());
+		response.getProfileLocationDtls().setProfileStateName(lcProfile.getLcState().getLcStateName());
+		response.getProfileLocationDtls().setProfileCityName(lcProfile.getLcCity().getLcCityName());
+		return response;
+	}
+
 }

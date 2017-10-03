@@ -18,96 +18,88 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 
 /**
  * The persistent class for the lc_profile database table.
  * 
  */
 @Entity
-@Table(name="lc_profile")
-//@NamedQuery(name="LcProfile.findAll", query="SELECT l FROM LcProfile l")
+@Table(name = "lc_profile")
 public class LcProfile implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="lc_profile_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "lc_profile_id")
 	private Integer lcProfileId;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="create_date")
+	@Column(name = "create_date")
 	private Date createDate;
 
-	@Column(name="create_user")
+	@Column(name = "create_user")
 	private String createUser;
 
 	@Lob
-	@Column(name="lc_profile_photo")
+	@Column(name = "lc_profile_photo")
 	private byte[] lcProfilePhoto;
 
-	@Column(name="lc_profile_statement")
+	@Column(name = "lc_profile_statement")
 	private String lcProfileStatement;
 
-	@Column(name="lc_profile_tell_abt_yrself")
+	@Column(name = "lc_profile_tell_abt_yrself")
 	private String lcProfileTellAbtYrself;
 
-	@Column(name="lc_profile_title")
+	@Column(name = "lc_profile_title")
 	private String lcProfileTitle;
 
 	@Lob
-	@Column(name="lc_profile_video")
+	@Column(name = "lc_profile_video")
 	private byte[] lcProfileVideo;
 
-	@Column(name="lc_profile_video_url")
+	@Column(name = "lc_profile_video_url")
 	private String lcProfileVideoUrl;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="update_date")
+	@Column(name = "update_date")
 	private Date updateDate;
 
-	@Column(name="update_user")
+	@Column(name = "update_user")
 	private String updateUser;
 
-	//creating new fields in profile table begin
-	@Column(name="lc_name",length=500)
+	// creating new fields in profile table begin
+	@Column(name = "lc_name", length = 500)
 	private String lcName;
-	
-	@Column(name="lc_primary_email",length=500)
-	private String  lcPrimaryEmail;
-	
-	@Column(name="lc_seconadry_email",length=500)
+
+	@Column(name = "lc_primary_email", length = 500)
+	private String lcPrimaryEmail;
+
+	@Column(name = "lc_seconadry_email", length = 500)
 	private String lcSecondryEmail;
-	
-	@Column(name="lc_username",length=500)
+
+	@Column(name = "lc_username", length = 500)
 	private String lcUserName;
-	
-	@Column(name="lc_password",length=1000)
+
+	@Column(name = "lc_password", length = 1000)
 	private String lcPassWord;
-	
-	@Column(name="lc_gender",length=25)
+
+	@Column(name = "lc_gender", length = 25)
 	private String lcGender;
-	
-	@Column(name="lc_age")
+
+	@Column(name = "lc_age")
 	private Integer lcAge;
-	
-	@Column(name="lc_street",length=2500)
+
+	@Column(name = "lc_street", length = 2500)
 	private String lcStreet;
-	
-	@Column(name="lc_building",length=500)
+
+	@Column(name = "lc_building", length = 500)
 	private String lcBuilding;
-	
-	@Column(name="lc_phone",length=25)
+
+	@Column(name = "lc_phone", length = 25)
 	private String lcPhone;
-	
-	
-	
-	//creating new fields in profile table end
-	
-	
+
 	public String getLcName() {
 		return lcName;
 	}
@@ -188,57 +180,57 @@ public class LcProfile implements Serializable {
 		this.lcPhone = lcPhone;
 	}
 
-	//bi-directional many-to-one association to LcContribution
+	// bi-directional many-to-one association to LcContribution
 	@JsonManagedReference(value = "contribution")
-	@OneToMany(mappedBy="lcProfile", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "lcProfile", cascade = CascadeType.ALL)
 	private List<LcContribution> lcContributions;
 
-	//bi-directional many-to-one association to LcPortfolio
-	@JsonManagedReference(value ="Portfolios")
-	@OneToMany(mappedBy="lcProfile", cascade = CascadeType.ALL)
-	
+	// bi-directional many-to-one association to LcPortfolio
+	@JsonManagedReference(value = "Portfolios")
+	@OneToMany(mappedBy = "lcProfile", cascade = CascadeType.ALL)
+
 	private List<LcPortfolio> lcPortfolios;
 
-	//bi-directional many-to-one association to LcCity
+	// bi-directional many-to-one association to LcCity
 	@JsonBackReference(value = "profilecity")
 	@ManyToOne
-	@JoinColumn(name="lc_cities_lc_city_id")
+	@JoinColumn(name = "lc_cities_lc_city_id")
 	private LcCity lcCity;
 
-	//bi-directional many-to-one association to LcCountry
-	@JsonBackReference(value="profilecountry")
+	// bi-directional many-to-one association to LcCountry
+	@JsonBackReference(value = "profilecountry")
 	@ManyToOne
-	@JoinColumn(name="lc_countries_lc_country_id")
+	@JoinColumn(name = "lc_countries_lc_country_id")
 	private LcCountry lcCountry;
 
-	//bi-directional many-to-one association to LcState
-	@JsonBackReference(value ="profilestate")
+	// bi-directional many-to-one association to LcState
+	@JsonBackReference(value = "profilestate")
 	@ManyToOne
-	@JoinColumn(name="lc_states_lc_state_id")
+	@JoinColumn(name = "lc_states_lc_state_id")
 	private LcState lcState;
 
-	//bi-directional many-to-one association to LcProfileContibsXref
+	// bi-directional many-to-one association to LcProfileContibsXref
 	@JsonManagedReference(value = "profilecontributionXref")
-	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "lcProfile", cascade = CascadeType.ALL)
 	private List<LcProfileContibsXref> lcProfileContibsXrefs;
 
-	//bi-directional many-to-one association to LcProfileInterestsXref
+	// bi-directional many-to-one association to LcProfileInterestsXref
 	@JsonManagedReference(value = "ProfileInterests")
-	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "lcProfile", cascade = CascadeType.ALL)
 	private List<LcProfileInterestsXref> lcProfileInterestsXrefs;
 
-	//bi-directional many-to-one association to LcRecommendation
+	// bi-directional many-to-one association to LcRecommendation
 	@JsonManagedReference(value = "Recommendations")
-	@OneToMany(mappedBy="lcProfile")
+	@OneToMany(mappedBy = "lcProfile")
 	private List<LcRecommendation> lcRecommendations;
 
-	//bi-directional many-to-one association to LcSocial
+	// bi-directional many-to-one association to LcSocial
 	@JsonManagedReference(value = "social")
-	@OneToMany(mappedBy="lcProfile", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "lcProfile", cascade = CascadeType.ALL)
 	private List<LcSocial> lcSocials;
 
 	public LcProfile() {
-		
+
 	}
 
 	public Integer getLcProfileId() {
@@ -484,5 +476,5 @@ public class LcProfile implements Serializable {
 
 		return lcSocial;
 	}
- 
+
 }
