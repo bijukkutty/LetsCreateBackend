@@ -19,8 +19,8 @@ public class CorsOrigin extends GenericFilterBean implements Filter {
 		System.out.println("Entering CORS enabler");
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		httpResponse.setHeader("Access-Control-Allow-Origin", "*");
-		httpResponse.setHeader("Access-Control-Allow-Methods", "*");
-		httpResponse.setHeader("Access-Control-Allow-Headers", "*");
+		httpResponse.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+		httpResponse.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 		httpResponse.setHeader("Access-Control-Allow-Credentials", "false");
 		httpResponse.setHeader("Access-Control-Allow-Max-Age", "3600");
 		chain.doFilter(request, response);
